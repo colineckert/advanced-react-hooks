@@ -17,11 +17,6 @@ import {useAsync} from '../utils'
 
 const PokemonCacheContext = React.createContext()
 
-function PokemonCacheProvider(props) {
-  const [cache, dispatch] = React.useReducer(pokemonCacheReducer, {})
-  return <PokemonCacheContext.Provider value={[cache, dispatch]} {...props} />
-}
-
 function pokemonCacheReducer(state, action) {
   switch (action.type) {
     case 'ADD_POKEMON': {
@@ -31,6 +26,11 @@ function pokemonCacheReducer(state, action) {
       throw new Error(`Unhandled action type: ${action.type}`)
     }
   }
+}
+
+function PokemonCacheProvider(props) {
+  const [cache, dispatch] = React.useReducer(pokemonCacheReducer, {})
+  return <PokemonCacheContext.Provider value={[cache, dispatch]} {...props} />
 }
 
 function PokemonInfo({pokemonName}) {
